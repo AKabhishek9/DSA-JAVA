@@ -1,0 +1,35 @@
+class Solution {
+    public void reverse(int nums[], int start, int end){
+        while(start<end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+
+        }
+    }
+    public void nextPermutation(int[] nums) {
+        int index1 = -1;
+
+        for(int i = nums.length-2; i>=0; i--){
+            if(nums[i]<nums[i+1]){
+                index1 = i;
+                break;
+            }
+        }
+        if(index1 == -1){
+            reverse(nums, 0, nums.length-1);
+            return;
+        }
+        for(int i = nums.length-1; i>index1; i--){
+            if(nums[i]>nums[index1]){
+                int temp = nums[i];
+                nums[i] = nums[index1];
+                nums[index1] = temp;
+                break;
+            }
+        }
+        reverse(nums, index1+1, nums.length-1);
+    }
+}
