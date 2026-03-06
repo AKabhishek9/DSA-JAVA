@@ -1,0 +1,27 @@
+class Solution {
+    public int minSwaps(int[] nums) {
+        int n = nums.length;
+        int windowSize = 0; 
+        for(int i = 0; i<n; i++){
+            windowSize+=nums[i];
+        }
+        int zeros = 0;
+        for(int i = 0; i<windowSize; i++){
+            if(nums[i] == 0) zeros++;
+        }
+
+        int minZeros = zeros;
+        int start = 0;
+        int end = windowSize-1;
+        while(start<n){
+            if(nums[start] == 0) zeros--;
+            start++;
+            end++;
+            if(nums[end%n] == 0) zeros++;
+
+            minZeros = Math.min(minZeros, zeros);
+
+        }
+        return minZeros;
+    }
+}
