@@ -1,0 +1,39 @@
+class Solution {
+    public int minFlips(String s) {
+        int n = s.length();
+        String newStr = s + s;
+        int len = newStr.length();
+
+        int flip1 = 0, flip2 = 0; 
+        int ans = n;
+
+        for (int i = 0; i < len; i++) {
+            char c = newStr.charAt(i);
+            if (i % 2 == 0) {
+                if (c != '0') flip1++;
+                if (c != '1') flip2++;
+            } else {
+                if (c != '1') flip1++;
+                if (c != '0') flip2++;
+            }
+
+            if (i >= n) {
+                char removed = newStr.charAt(i - n);
+                if ((i - n) % 2 == 0) {
+                    if (removed != '0') flip1--;
+                    if (removed != '1') flip2--;
+                } else {
+                    if (removed != '1') flip1--;
+                    if (removed != '0') flip2--;
+                }
+            }
+
+            // Record answer once window is full
+            if (i >= n - 1) {
+                ans = Math.min(ans, Math.min(flip1, flip2));
+            }
+        }
+
+        return ans;
+    }
+}
